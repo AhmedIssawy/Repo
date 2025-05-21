@@ -7,6 +7,7 @@ import {
   getStudentById,
   updateStudent,
   deleteStudent,
+  getStudentRegistrationCountByDate,
 } from "../controllers/student.controller.js";
 
 // Validators
@@ -15,6 +16,7 @@ import {
   validateStudentId,
   validateStudentUpdateData,
   validateUniversityId,
+  validateDateParameter,
 } from "../middlewares/validation.middleware.js";
 
 const router = Router();
@@ -23,6 +25,10 @@ router.route("/").get(getStudentsPage);
 router.route("/:universityId").post(validateUniversityId, createStudent);
 
 router.route("/all").get(getAllStudents);
+
+router
+  .route("/registered/count/:date")
+  .get(validateDateParameter, getStudentRegistrationCountByDate);
 
 router
   .route("/:id")

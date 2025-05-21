@@ -171,6 +171,19 @@ const deleteStudent = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Student has been removed permanently" });
 });
 
+const getStudentRegistrationCountByDate = asyncHandler(async (req, res) => {
+  const { date } = req.params;
+  const startDate = new Date(date);
+  const endDate = new Date(date);
+  endDate.setDate(endDate.getDate() + 1);
+  const count = await Student.countDocuments({
+    createdAt: {
+      $gte: startDate,
+      $lt: endDate,
+    },
+  });
+  res.status(200).json({ count });
+});
 export {
   createStudent,
   getAllStudents,
@@ -178,4 +191,5 @@ export {
   getStudentById,
   deleteStudent,
   updateStudent,
+  getStudentRegistrationCountByDate,
 };

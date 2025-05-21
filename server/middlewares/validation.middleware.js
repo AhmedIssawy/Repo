@@ -52,10 +52,29 @@ const validateStudentUpdateData = (req, res, next) => {
   next();
 };
 
+const validateDateParameter = (req, res, next) => {
+  const { date } = req.params;
+
+  if (!date) {
+    return res.status(400).json({ error: "Missing date parameter" });
+  }
+
+  const parsedDate = new Date(date);
+
+  if (isNaN(parsedDate)) {
+    return res.status(400).json({
+      error: "Invalid date format please ree write it unsing YYYY-MM-DD",
+    });
+  }
+
+  next();
+};
+
 export {
   validateObjectId,
   validateStudentId,
   validateStudentLoginData,
   validateUniversityId,
   validateStudentUpdateData,
+  validateDateParameter,
 };

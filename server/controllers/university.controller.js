@@ -145,7 +145,7 @@ const getStudentsPageOfUniversity = asyncHandler(async (req, res) => {
 
   if (!students || students.length === 0) {
     return res.status(404).json({
-      message: "No students found ",
+      message: "No students found",
     });
   }
 
